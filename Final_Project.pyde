@@ -39,27 +39,29 @@ class Button:
                 stroke(255,255,0)
                 strokeWeight(10)
                 fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
-                rect(self.x,self.y,self.w,self.h, 10)
+                rect(self.x,self.y,self.w,self.h, 15)
                 fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
                 textFont(mono)
                 textSize(self.font_size+10)
                 text(self.txt,self.x+20,self.y+70)
 
         if mousePressed:
-            if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h ):
-                stroke(255,20,147)
-                strokeWeight(10)
-                fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
-                rect(self.x,self.y,self.w,self.h)
-                fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
-                textFont(mono)
-                textSize(self.font_size+10)
-                text(self.txt,self.x+20,self.y+70)
+            global screen
+            if screen != screen+1:
+
+                if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h ):
+                    stroke(255,20,147)
+                    strokeWeight(10)
+                    fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
+                    rect(self.x,self.y,self.w,self.h, 15)
+                    fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
+                    textFont(mono)
+                    textSize(self.font_size+10)
+                    text(self.txt,self.x+20,self.y+70)
                 
-                if self.ans==1:
-                    self.qsn+=1
-    def get_qsn(self):
-        return self.qsn
+                    if self.ans==1:
+                        screen+=1
+  
 
                 
                 
@@ -135,9 +137,6 @@ def draw():
         
         button4=Button("  3.14", 550, 350, 100, 300, [255,222,173], [255,20,147] )
         button4.display()
-        if button3.get_qsn()==1:
-            screen+=1
-            
         
             
     elif screen==2:
