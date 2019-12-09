@@ -1,7 +1,7 @@
 import os
-import time
 global screen
 screen=0
+global coin
 coin=0
 path = os.getcwd()+"/"
 coin_img=loadImage(path+"coin.png")
@@ -18,9 +18,11 @@ click=0
 
 global life
 life=3
-class Coin:
 
-    def __init__(self):    
+class Coin:
+    global coin
+    def __init__(self): 
+           
         image(coin_img, 750, 50, 100, 100)
         fill(255, 215, 0)
         textSize(70)
@@ -60,6 +62,7 @@ class Button:
         
     def display(self):
         global click
+        global coin
         fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
         noStroke()
         rect(self.x,self.y,self.w,self.h,10)
@@ -81,8 +84,9 @@ class Button:
         if flag==0:
             global screen
             global flag
-            if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h ): #click on the right answer
-                stroke(255, 20, 147)
+            global coin
+            if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h ):
+                stroke(255,20,147)
                 strokeWeight(10)
                 fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
                 rect(self.x,self.y,self.w,self.h, 15)
@@ -93,11 +97,13 @@ class Button:
                 
                 if self.ans==1:
                     screen+=1
+                
                     flag=1
                     click=0
-
-        
-        if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h and click==1): #click on wrong answers
+                if screen!=1 and self.ans==1:
+                    coin+=10    
+                    
+        if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h and click==1):
             stroke(255,20,147)
             strokeWeight(10)
             fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
@@ -133,7 +139,6 @@ class Basic:
 
 question=0
 flag=1
-
 def mousePressed():
     global click
     click=1
@@ -192,7 +197,6 @@ def draw():
         ans_y=350
         ans_h=100
         ans_w=300
-        coin=Coin()
         basic=Basic("onion.jpg", 350, -10, 300, 200)
         basic.display()
         basic.question()
@@ -213,7 +217,7 @@ def draw():
         ans_h=100
         ans_w=300
         basic=Basic("abundance.png", 400, -10, 200, 200)
-        coin=Coin()
+        
         basic.display()
         basic.question()
         
@@ -235,3 +239,9 @@ def draw():
     if life==0:
         background(240, 255, 240)
         text("GAME OVER!!", 300, 350)
+    
+    if screen!=0:
+        coin1=Coin()
+        global coin
+    
+            
