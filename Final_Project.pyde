@@ -69,7 +69,7 @@ class Button:
         fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
         textFont(mono)
         textSize(self.font_size)
-        text(self.txt,self.x+20,self.y+70)
+        text(self.txt,self.x+40,self.y+70)
 
         if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h):
                 stroke(255,255,0)
@@ -78,8 +78,8 @@ class Button:
                 rect(self.x,self.y,self.w,self.h, 15)
                 fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
                 textFont(mono)
-                textSize(self.font_size+10)
-                text(self.txt,self.x+20,self.y+70)
+                textSize(self.font_size+5)
+                text(self.txt,self.x+40,self.y+65)
 
         if flag==0:
             global screen
@@ -120,12 +120,13 @@ class Button:
 
 
 class Basic:
-    def __init__(self, image_file, x, y, w, h):
+    def __init__(self, image_file, x, y, w, h, txt):
         self.img = loadImage(path+image_file)
         self.x=x
         self.y=y
         self.w=w
         self.h=h
+        self.txt=txt
   
     def display(self):
         image(self.img, self.x, self.y, self.w, self.h)
@@ -134,7 +135,7 @@ class Basic:
         fill(51, 153, 255)
         textSize(70)
         textFont(mono)
-        text("Q1: What is                ?",35,120)
+        text(self.txt,35,120)
 
 
 question=0
@@ -175,14 +176,8 @@ def draw():
         textSize(80)
         textFont(mono)
         text("aN eAsY QuIZz", 220, 250)
-        fill(255,255,224)
-        noStroke()
-        rect(320,350,300,75,20)
-        fill(255,105,180)
-        textSize(70)
-        textFont(mono)
-        text("START!!",340,410)
-        button_start=Button("START",320, 350, 75, 300 ,[255,255,224], [255, 20, 147],48, 1 )
+      
+        button_start=Button("START",320, 350, 75, 300 ,[255,255,224], [255, 20, 147],50, 1 )
         ans_x=320
         ans_y=350
         ans_h=75
@@ -197,7 +192,7 @@ def draw():
         ans_y=350
         ans_h=100
         ans_w=300
-        basic=Basic("onion.jpg", 350, -10, 300, 200)
+        basic=Basic("onion.jpg", 350, -10, 300, 200, "Q1: What is                ?")
         basic.display()
         basic.question()
         button3=Button("SHALLOTS", 150, 350, 100, 300, [255,222,173], [255,20,147], 43, 1 )
@@ -216,7 +211,7 @@ def draw():
         ans_y=200
         ans_h=100
         ans_w=300
-        basic=Basic("abundance.png", 400, -10, 200, 200)
+        basic=Basic("abundance.png", 400, -10, 200, 200, "Q2: What is                ?")
         
         basic.display()
         basic.question()
@@ -232,9 +227,33 @@ def draw():
         
     if screen==3:
         background(240, 255, 240)
+        ans_x=550
+        ans_y=200
+        ans_h=100
+        ans_w=300
+
+        textFont(mono)
+        textSize(50)
+        fill(51, 153, 255)
+        text("Q3:   .SDRAWKCAB\nNOITSEUQ SIHT\n          REWSNA", 180, 50 )
         
-    if screen!=0:
-        gamelife=Lives(life)
+        button1=Button("WELL..", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button1.display()
+        button2=Button("K.O", 550, 200, 100, 300, [255,222,173], [255,20,147], 38, 1 )
+        button2.display()
+        button3=Button("TENNIS ELBOW", 150, 350, 100, 300, [255,222,173], [255,20,147], 35)
+        button3.display()
+        button4=Button("YES", 550, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button4.display()
+        
+    if screen==4:
+        background(240, 255, 240)
+        
+    
+    
+    
+    
+    gamelife=Lives(life)
 
     if life==0:
         background(240, 255, 240)
@@ -243,5 +262,3 @@ def draw():
     if screen!=0:
         coin1=Coin()
         global coin
-    
-            
