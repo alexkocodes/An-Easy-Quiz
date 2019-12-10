@@ -72,6 +72,7 @@ class Button:
         text(self.txt,self.x+40,self.y+70)
 
         if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h):
+            if self.txt!="THE ANSWER":
                 stroke(255,255,0)
                 strokeWeight(10)
                 fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
@@ -248,6 +249,37 @@ def draw():
         
     if screen==4:
         background(240, 255, 240)
+        ans_x=280
+        ans_y=40
+        ans_h=100
+        ans_w=300
+
+        textFont(mono)
+        textSize(50)
+        fill(51, 153, 255)
+        text("Q4: CLICK ", 35, 120 )
+        
+        button1=Button("OUT OF ORDER", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button1.display()
+        button2=Button("OUT OF ORDER", 550, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button2.display()
+        button3=Button("OUT OF ORDER", 150, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button3.display()
+        button4=Button("OUT OF ORDER", 550, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button4.display()
+        button5=Button("THE ANSWER", 240, 47, 100, 300, [240, 255, 240], [51, 153, 255], 50,1)
+        button5.display()
+        
+        textFont(mono)
+        textSize(50)
+        fill(51, 153, 255)
+        text("Q4: CLICK ", 35, 120 )
+        
+    if screen==5:
+        background(240, 255, 240)
+        textSize(80)
+        textFont(mono)
+        text("YAYAYAY", 220, 250)
         
     
     
