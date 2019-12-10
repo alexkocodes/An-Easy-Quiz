@@ -15,6 +15,8 @@ ans_h=0
 ans_w=0
 global click
 click=0
+global change
+change=0
 
 global life
 life=3
@@ -276,15 +278,44 @@ def draw():
         text("Q4: CLICK ", 35, 120 )
         
     if screen==5:
+        global change
+    
         background(240, 255, 240)
         textSize(80)
         textFont(mono)
-        text("YAYAYAY", 220, 250)
+        fill(51, 153, 255)
+        text("Q5: Put the mouse...", 220, 250)
+        text("...on here -->", 500, 400)
+    
+        stroke(51, 153, 255)
+        noFill()
+        circle(950, 380, 80)
         
-    
-    
-    
-    
+        noStroke()
+        fill(220, 20, 60)
+        circle(950, 380, 30)
+        
+        if change==0:
+            
+            if 910 < mouseX < 990 and 340 < mouseY < 420:
+                change=1
+            
+        if change==1:
+            background(51, 153, 255)
+            fill(0,255,0)
+            circle(950, 380, 110)
+            circle(10, 300, 80)
+            fill(220, 20, 60)
+            circle(950, 380, 30)
+            circle(10, 300, 30)
+            
+            if not (0<mouseX<20 and 290<mouseY<310 and 910 < mouseX < 990 and 340 < mouseY < 420):
+                global life
+                life-=1
+                
+            
+            
+
     gamelife=Lives(life)
 
     if life==0:
