@@ -3,6 +3,8 @@ global screen
 screen=0
 global coin
 coin=0
+global al
+al=0
 path = os.getcwd()+"/"
 coin_img=loadImage(path+"coin.png")
 global ans_x
@@ -34,12 +36,24 @@ class Coin:
 class Lives:
     
     def __init__(self,number):
+        
         fill(0)
         textSize(30)
         textFont(mono)
         self.number=number
-
-        text("Lives:"+str(self.number),35,550)
+        alert_img=loadImage(path+"alert.jpg")
+    
+        
+        if al==1:
+            
+            textSize(40)
+            image(alert_img,0,450,600,200)
+            textFont(mono)
+            
+        else:
+            textFont(mono)
+            text("Lives:"+str(self.number),35,550)
+        
         
         
             
@@ -279,13 +293,19 @@ def draw():
         
     if screen==5:
         global change
-    
-
+        global al
+        al=1
+        
+        
             
-        background(240, 255, 240)
+        background(0)
+        fill(240, 255, 240)
+        rect(0,550,300,50)
+        
+        
         textSize(80)
         textFont(mono)
-        fill(51, 153, 255)
+        fill(255, 255, 0)
         text("Q5: Put the mouse...", 220, 250)
         text("...on here -->", 500, 400)
     
@@ -304,14 +324,36 @@ def draw():
             
         if change==1:
             background(51, 153, 255)
+            textSize(32)
+            
             fill(0,255,0)
             circle(950, 380, 110)
-            circle(10, 300, 80)
+            circle(10, 300, 150)
+            fill(0)
+            text("GO",930,420)
+            
             fill(220, 20, 60)
             circle(950, 380, 30)
             circle(10, 300, 30)
+            fill(0)
+            textSize(32)
+            text("NEXT",0,210)
+            
+            text("QUESTION",20,400)
+           
+            
+            
+            textSize(80)
+            textFont(mono)
+            textSize(60)
+            fill(173, 216, 255)
+            
+        
+            text("DON'T TOUCH", 250, 300)
+            text("THE BLUE!!",300,350)
+            
 
-            if not ((-10<mouseX<30 and 270<mouseY<320) or (910 < mouseX < 1000 and 340 < mouseY < 420)):
+            if not ((-20<mouseX<30 and 260<mouseY<330) or (910 < mouseX < 1000 and 340 < mouseY < 420)):
                 global life
                 life=0
                 
@@ -319,8 +361,10 @@ def draw():
                 screen+=1
                 
     if screen==6:
+        global al
+        al=0
         background(240, 255, 240)
-        text("Q6!!", 300, 350)
+        text("Q6", 300, 350)
                 
                 
                 
