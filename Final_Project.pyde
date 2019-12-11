@@ -261,13 +261,13 @@ def draw():
         fill(51, 153, 255)
         text("Q4: CLICK ", 35, 120 )
         
-        button1=Button("OUT OF ORDER", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button1=Button("OUT OF ORDER", 150, 200, 100, 300, [255,222,173], [255,20,147], 32 )
         button1.display()
-        button2=Button("OUT OF ORDER", 550, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button2=Button("OUT OF ORDER", 550, 200, 100, 300, [255,222,173], [255,20,147], 32 )
         button2.display()
-        button3=Button("OUT OF ORDER", 150, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button3=Button("OUT OF ORDER", 150, 350, 100, 300, [255,222,173], [255,20,147], 32)
         button3.display()
-        button4=Button("OUT OF ORDER", 550, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button4=Button("OUT OF ORDER", 550, 350, 100, 300, [255,222,173], [255,20,147], 32)
         button4.display()
         button5=Button("THE ANSWER", 240, 47, 100, 300, [240, 255, 240], [51, 153, 255], 50,1)
         button5.display()
@@ -280,6 +280,8 @@ def draw():
     if screen==5:
         global change
     
+
+            
         background(240, 255, 240)
         textSize(80)
         textFont(mono)
@@ -290,7 +292,7 @@ def draw():
         stroke(51, 153, 255)
         noFill()
         circle(950, 380, 80)
-        
+    
         noStroke()
         fill(220, 20, 60)
         circle(950, 380, 30)
@@ -308,17 +310,27 @@ def draw():
             fill(220, 20, 60)
             circle(950, 380, 30)
             circle(10, 300, 30)
-            
-            if not (0<mouseX<20 and 290<mouseY<310 and 910 < mouseX < 990 and 340 < mouseY < 420):
+
+            if not ((-10<mouseX<30 and 270<mouseY<320) or (910 < mouseX < 1000 and 340 < mouseY < 420)):
                 global life
-                life-=1
+                life=0
+                
+            elif -10<mouseX<30 and 270<mouseY<320:
+                screen+=1
+                
+    if screen==6:
+        background(240, 255, 240)
+        text("Q6!!", 300, 350)
+                
+                
+                
                 
             
             
 
     gamelife=Lives(life)
 
-    if life==0:
+    if life<=0:
         background(240, 255, 240)
         text("GAME OVER!!", 300, 350)
     
