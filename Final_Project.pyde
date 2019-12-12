@@ -364,8 +364,9 @@ def draw():
         global al
         al=0
         background(240, 255, 240)
-        text("Q6", 300, 350)
-                
+        fill(51, 153, 255)
+        textSize(60)
+        text("Q6: What happens if\n       you p...p...pick up\n           a penguin?", 90, 50)
                 
                 
                 
