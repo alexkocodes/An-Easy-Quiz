@@ -114,7 +114,6 @@ class Button:
                 
                 if self.ans==1:
                     screen+=1
-                
                     flag=1
                     click=0
                 if screen!=1 and self.ans==1:
@@ -154,9 +153,14 @@ class Basic:
         textFont(mono)
         text(self.txt,35,120)
 
-
-question=0
+global x_q6
+global y_q6
+global within
+within=False
+x_q6=270
+y_q6=150
 flag=1
+
 def mousePressed():
     global click
     click=1
@@ -167,7 +171,9 @@ def mousePressed():
     if(mouseX>ans_x and mouseX <ans_x+ans_w and mouseY>ans_y and mouseY <ans_y+ans_h ):
         global flag
         flag=0
-    
+        
+def mouseReleased():
+    flag=1
     
     
 def setup():
@@ -359,19 +365,44 @@ def draw():
                 
             elif -10<mouseX<30 and 270<mouseY<320:
                 screen+=1
+                flag=1
                 
     if screen==6:
         global al
+        global x_q6
+        global y_q6
+        ans_x=270
+        ans_y=150
+        ans_h=70
+        ans_w=300
         al=0
+        within=False
         background(240, 255, 240)
         fill(51, 153, 255)
         textSize(60)
-        text("Q6: What happens if\n       you p...p...pick up\n           a penguin?", 90, 50)
+        text("Q6: WHAT HAPPENS IF\n       YOU P...P...PICK UP\n           A PENGUIN  ?", 90, 50)
+        penguin_img=loadImage(path+"penguin.png")
+        image(penguin_img, x_q6, y_q6, 300, 70 )
+        
+        if flag==0:
+            
+            if x_q6 < mouseX < x_q6+300 and y_q6< mouseY < y_q6+70:
+                within=True
+                print("1")
+                
+            if within:
+                deltax= mouseX - pmouseX
+                deltay= mouseY - pmouseY
+                
+                x_q6+=deltax
+                y_q6+=deltay
+                print(x_q6)
                 
                 
                 
             
             
+
 
     gamelife=Lives(life)
 
