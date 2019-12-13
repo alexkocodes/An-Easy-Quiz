@@ -1,13 +1,17 @@
 import os
 import time
 global screen
-screen=0
+screen=10
 global coin
 coin=0
 global al
 al=0
 path = os.getcwd()+"/"
 coin_img=loadImage(path+"coin.png")
+bomb_img=loadImage(path+"bomb.png")
+arrow1_img=loadImage(path+"Arrow_1.png")
+arrow2_img=loadImage(path+"Arrow_2.png")
+arrow3_img=loadImage(path+"Arrow_3.png")
 global ans_x
 global ans_y
 global ans_h
@@ -82,13 +86,16 @@ class Button:
     def display(self):
         global click
         global coin
-        fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
+        if self.txt!="U":
+            fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
+        else:
+            noFill()
         noStroke()
         rect(self.x,self.y,self.w,self.h,10)
         fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
         textFont(mono)
         
-        if self.txt=="IT PECKS YOUR \n FACE OFF" or self.txt=="IT FILLS \n YOUR STOMACH":
+        if len(self.txt)>12:
             textSize(32)
             text(self.txt,self.x+20,self.y+40)
         else:
@@ -96,7 +103,7 @@ class Button:
              text(self.txt,self.x+40,self.y+70)
 
         if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h):
-            if self.txt!="THE ANSWER":
+            if self.txt!= ("THE ANSWER" ):
                 stroke(255,255,0)
                 strokeWeight(10)
                 fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
@@ -105,7 +112,7 @@ class Button:
                 textFont(mono)
                 textSize(self.font_size+5)
                 
-                if self.txt=="IT PECKS YOUR \n FACE OFF" or self.txt=="IT FILLS \n YOUR STOMACH":
+                if len(self.txt)>12:
                     textSize(self.font_size+5)
                     text(self.txt,self.x+40,self.y+30)
                 else:
@@ -138,8 +145,14 @@ class Button:
                     screen+=1
                     flag=1
                     click=0
+                    
+                    if self.txt=="YES!!":
+                        coin-=70
+                        life+=1
+                        
                 if screen!=1 and self.ans==1:
-                    coin+=10    
+                    if self.txt!="NAH":
+                        coin+=10    
                     
 
 
@@ -196,7 +209,9 @@ def setup():
     size(1000,600)
     background(240, 255, 240)
     global mono
+    global bonus
     mono = loadFont("InkFree-70.vlw")
+    bonus = loadFont("Serif-48.vlw")
 
 
 
@@ -437,27 +452,94 @@ def draw():
             
                 
     if screen==7:
+        
         global p
         background(240, 255, 240)
         m =  millis()-p
         seconds =  m / 1000
-  
-        text("Q7:", 180, 50 )
+        fill(51, 153, 255)
+        text("Q7: 23 - 16 =?", 200, 100 )
 
         starttime = 10-seconds
-    
+        
+        if starttime==7:
+            button5=Button("", 30, 40, 100, 100, [240, 255, 240], [240, 255, 240], 35, 1 )
+            noStroke()
+            button5.display()
+            
+        if starttime<0:
+            life=0
+            
         fill(0)
         textSize(50)
-        text(starttime, 80, 80)
+        text(starttime, 100, 100)
+        image(bomb_img, 20, 40, 80, 80)
+        
+        button1=Button("    4", 150, 200, 100, 300, [255,222,173], [255,20,147], 35 )
+        button1.display()
+        button2=Button("    WALRUS", 550, 200, 100, 300, [255,222,173], [255,20,147], 35 )
+        button2.display()
+        button3=Button("I DONT KNOW", 150, 350, 100, 300, [255,222,173], [255,20,147], 35)
+        button3.display()
+        button4=Button("All of above", 550, 350, 100, 300, [255,222,173], [255,20,147], 35)
+        button4.display()
+        
+
 
         
             
             
-
+    if screen==8:
+        background(240, 255, 240)
+        fill(51, 153, 255)
+        textSize(50)
+        text("Q8: What is the answer to Q2?", 40, 120 )
+        
+        button1=Button("This one", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button1.display()
+        button2=Button("Or this one", 550, 200, 100, 300, [255,222,173], [255,20,147], 38, 1 )
+        button2.display()
+        button3=Button("This?", 150, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button3.display()
+        button4=Button("Maybe this", 550, 350, 100, 300, [255,222,173], [255,20,147], 38)
+        button4.display()
+        
+        image(arrow1_img, 700, 300, 80, 60)
+        image(arrow2_img, 450, 260, 110, 80)
+        image(arrow3_img, 450, 350, 100, 60)
+        
+        
+    if screen==9:
+       background(240, 255, 240)
+       fill(255, 0, 0)
+       textFont(bonus)
+       textSize(60)
+       text("BONUS!! Do you want to\nredeem 1 life for 60 points?", 70, 120 )
        
-            
-            
+       button1=Button("YES!!", 150, 300, 100, 300, [255,222,173], [255,20,147], 40, 1 )
+       button1.display()
+       button2=Button("NAH", 550, 300, 100, 300, [255,222,173], [255,20,147], 40, 1 )
+       button2.display()
+       
+    if screen==10:
+        background(240, 255, 240)
+        fill(51, 153, 255)
+        textSize(60)
+        text("Q9: The answer is\na horseshoe.", 70, 90 )
+        
+        button1=Button("HOOF", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button1.display()
+        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        button2.display()
 
+        button3=Button("WHAT DO\nYOU MEAN?", 150, 350, 100, 300, [255,222,173], [255,20,147], 30)
+        button3.display()
+        button4=Button("HORSES WEAR\nSHOES??", 550, 350, 100, 300, [255,222,173], [255,20,147], 30)
+        button4.display()
+        button5=Button("", 200, 400, 40, 40, [255,222,173], [255,20,147], 30, 1)
+        button5.display()
+
+        
 
     gamelife=Lives(life)
 
