@@ -208,6 +208,7 @@ def draw():
     global ans_h
     global ans_w
     global life
+    
     if screen==0:   #Start Page
         global flag
         fill(175, 100, 220)
@@ -431,17 +432,28 @@ def draw():
                 
                 x_q6+=deltax
                 y_q6+=deltay
+        global p
+        p=millis()
             
                 
     if screen==7:
+        global p
         background(240, 255, 240)
+        m =  millis()-p
+        seconds =  m / 1000
+  
+        text("Q7:", 180, 50 )
+
+        starttime = 10-seconds
+    
+        fill(0)
+        textSize(50)
+        text(starttime, 80, 80)
+
         
-        '''timer=[10,9,8,7,6,5,4,3,2,1,0]
-        for t in timer:
             
-            background(240, 255, 240)
-            text(t,300,350)
-            time.sleep(1)'''
+            
+
        
             
             
