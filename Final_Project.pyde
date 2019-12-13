@@ -1,4 +1,5 @@
 import os
+import time
 global screen
 screen=0
 global coin
@@ -84,8 +85,13 @@ class Button:
         rect(self.x,self.y,self.w,self.h,10)
         fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
         textFont(mono)
-        textSize(self.font_size)
-        text(self.txt,self.x+40,self.y+70)
+        
+        if self.txt=="IT PECKS YOUR \n FACE OFF" or self.txt=="IT FILLS \n YOUR STOMACH":
+            textSize(32)
+            text(self.txt,self.x+20,self.y+40)
+        else:
+             textSize(self.font_size)
+             text(self.txt,self.x+40,self.y+70)
 
         if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h):
             if self.txt!="THE ANSWER":
@@ -97,6 +103,7 @@ class Button:
                 textFont(mono)
                 textSize(self.font_size+5)
                 text(self.txt,self.x+40,self.y+65)
+            
 
         if flag==0:
             global screen
@@ -118,6 +125,8 @@ class Button:
                     click=0
                 if screen!=1 and self.ans==1:
                     coin+=10    
+                    """if self.txt=="YES!! NEXT QUESTION!!":
+                        flag=1"""
                     
         if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h and click==1):
             stroke(255,20,147)
@@ -172,12 +181,13 @@ def mousePressed():
         global flag
         flag=0
         
+        
 def mouseReleased():
     flag=1
     
     
 def setup():
-
+    time = millis()
     size(1000,600)
     background(240, 255, 240)
     global mono
@@ -241,7 +251,7 @@ def draw():
         
         button1=Button("CUPCAKE", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
         button1.display()
-        button2=Button("ABUNDAMCE", 550, 200, 100, 300, [255,222,173], [255,20,147], 38, 1 )
+        button2=Button("ABUNDANCE", 550, 200, 100, 300, [255,222,173], [255,20,147], 38, 1 )
         button2.display()
         button3=Button("FAIRY CAKE", 150, 350, 100, 300, [255,222,173], [255,20,147], 38)
         button3.display()
@@ -366,6 +376,7 @@ def draw():
             elif -10<mouseX<30 and 270<mouseY<320:
                 screen+=1
                 flag=1
+    
                 
     if screen==6:
         global al
@@ -380,9 +391,34 @@ def draw():
         background(240, 255, 240)
         fill(51, 153, 255)
         textSize(60)
-        text("Q6: WHAT HAPPENS IF\n       YOU P...P...PICK UP\n           A PENGUIN  ?", 90, 50)
+        text("Q6: WHAT HAPPENS IF\n       YOU P...P...PICK UP\n          ", 90, 50)
+        pengans_img=loadImage(path+"pengans.png")
+            
         penguin_img=loadImage(path+"penguin.png")
-        image(penguin_img, x_q6, y_q6, 300, 70 )
+        image(penguin_img, x_q6, y_q6, 400, 70 )
+        if x_q6!=270 and y_q6!=150:
+            image(pengans_img, 180, 150, 100, 70 )  
+            textSize(32)
+            
+            
+            
+            ans_x=350
+            ans_y=100
+            ans_h=100
+            ans_w=500
+            button5=Button("YES!! NEXT QUESTION!!",350, 100, 100, 500, [240, 255, 240], [0, 250, 0], 26,1)
+            button5.display()
+
+            
+        button1=Button("NOTHING", 150, 280, 100, 300, [255,222,173], [255,20,147], 32 )
+        button1.display()
+        button2=Button("IT PECKS YOUR \n FACE OFF", 550, 280, 100, 300, [255,222,173], [255,20,147], 28 )
+        button2.display()
+        button3=Button("IT FILLS \n YOUR STOMACH", 150, 400, 100, 300, [255,222,173], [255,20,147], 28)
+        button3.display()
+        button4=Button("PENGUIN POO", 550, 400, 100, 300, [255,222,173], [255,20,147], 32)
+        button4.display()
+        
         
         if flag==0:
             
@@ -397,9 +433,20 @@ def draw():
                 x_q6+=deltax
                 y_q6+=deltay
                 print(x_q6)
+            
                 
-                
-                
+    if screen==7:
+        background(240, 255, 240)
+        
+        
+
+        timer=[10,9,8,7,6,5,4,3,2,1,0]
+        for t in timer:
+            
+            background(240, 255, 240)
+            text(t,300,350)
+            time.sleep(1)
+       
             
             
 
