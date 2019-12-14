@@ -1,7 +1,7 @@
 import os
 import time
 global screen
-screen=0
+screen=12
 global coin
 coin=0
 global al
@@ -154,8 +154,8 @@ class Button:       #class for the 4 buttons and other answers
                     life-=1
                     click=0
                     flag=1
-                
-            
+                if self.ans==2:
+                    life=0
                     
                 if self.ans==1 and screen!=10:  #right answer and if not specific to question10
                     
@@ -564,27 +564,27 @@ def draw():
         textFont(bonus)
         textSize(60)
         
-        text("Q9: The answer is\na horseshoe.", 70, 90 )
-           
+        text("Q9: The answer is\n       a horseshoe.", 70, 90 )
         
-        button1=Button("HOOF", 150, 200, 100, 300, [255,222,173], [255,20,147], 50 )
+        button1=Button("HOOF", 150, 200, 100, 300, [255,222,173], [255,20,147], 30 )
         button1.display()
         
-        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 50 )
+        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 30 )
         button2.display()
 
-        button3=Button("WHAT DO\nYOU MEAN?", 150, 350, 100, 300, [255,222,173], [255,20,147], 50, 1)
+        button3=Button("WHAT DO\nYOU MEAN?", 150, 350, 100, 300, [255,222,173], [255,20,147], 30, 1)
         button3.display()
         
-        button4=Button("HORSES WEAR\nSHOES??", 550, 350, 100, 300, [255,222,173], [255,20,147], 50)
+        button4=Button("HORSES WEAR\nSHOES??", 550, 350, 100, 300, [255,222,173], [255,20,147], 30)
         button4.display()
         
         global prev
         prev=millis()
         
     if screen==11:  #10th Question
+        
         global prev
-        background(255, 255, 255)
+        background(240, 255, 240)
         text("ok", 300, 350)
         
         m =  millis()- prev
@@ -625,8 +625,18 @@ def draw():
         image(bomb_img, 30, 50, 100, 100)
                 
     if screen==12: #Win
-        background(240, 255, 240)
-        text("YAAS!!", 300, 350)
+        background(0)
+        fill(255, 0, 0)
+        textSize(50)
+        text("Final Question!\nAnswer this question wrong to win!", 50, 90 )
+        text("23 - 16?", 50, 220 )
+        
+        button1=Button("7", 150, 200, 100, 300, [255,222,173], [255,20,147], 30, 2 )
+        button1.display()
+        
+        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 30 )
+        button2.display()
+        
             
 
         
