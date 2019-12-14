@@ -1,7 +1,7 @@
 import os
 import time
 global screen
-screen=12
+screen=0
 global coin
 coin=0
 global al
@@ -58,6 +58,7 @@ class Lives:    #class for number of lives
                 textFont(mono)
                 
             else:
+                fill(255, 0, 0)
                 textFont(mono)
                 text("Lives:"+str(self.number),35,550)
             
@@ -214,7 +215,8 @@ within=False
 x_q6=270
 y_q6=150
 flag=1
-
+global win
+win=0
 def mousePressed():  #changes variable flag to 0 when mouse pressed
     global click
     click=1
@@ -631,21 +633,34 @@ def draw():
         text("Final Question!\nAnswer this question wrong to win!", 50, 90 )
         text("23 - 16?", 50, 220 )
         
-        button1=Button("7", 150, 200, 100, 300, [255,222,173], [255,20,147], 30, 2 )
+        button1=Button("7", 150, 300, 100, 300, [255,222,173], [255,20,147], 30, 2 )
         button1.display()
         
-        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 30 )
+        button2=Button("A horseshoe", 550, 300, 100, 300, [255,222,173], [255,20,147], 30 )
         button2.display()
-        
             
+        if life==4:
+           win=1
+        
 
         
 
     gamelife=Lives(life)
-
-    if life<=0: #Game over page
+    
+    if screen==13:
         background(240, 255, 240)
-        text("GAME OVER!!", 300, 350)
+        text("YAS!!", 300, 350)
+        noLoop()
+    if life<=0: #Game over page
+        global win
+        if screen!=12 and screen!=13:    
+            background(240, 255, 240)
+            text("GAME OVER!!", 300, 350)
+        elif win==1:
+            screen+=1
+            
+        
+
     
     if screen!=0: #to display coin except for start page
         coin1=Coin()
