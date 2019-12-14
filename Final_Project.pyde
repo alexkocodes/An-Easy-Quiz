@@ -1,7 +1,7 @@
 import os
 import time
 global screen
-screen=10
+screen=0
 global coin
 coin=0
 global al
@@ -30,7 +30,7 @@ change=0
 global life
 life=3
 
-class Coin:
+class Coin:     #class for points
     global coin
     def __init__(self): 
            
@@ -40,32 +40,32 @@ class Coin:
         textFont(mono)
         text(": "+str(coin),850, 120)
         
-class Lives:
+class Lives:    #class for number of lives
     
     def __init__(self,number):
-        
-        fill(0)
-        textSize(30)
-        textFont(mono)
-        self.number=number
-        alert_img=loadImage(path+"alert.jpg")
-    
-        
-        if al==1:
-            
-            textSize(40)
-            image(alert_img,0,450,600,200)
+        if screen!=0:
+            fill(0)
+            textSize(30)
             textFont(mono)
-            
-        else:
-            textFont(mono)
-            text("Lives:"+str(self.number),35,550)
-        
-        
+            self.number=number
+            alert_img=loadImage(path+"alert.jpg")
         
             
+            if al==1:
+                
+                textSize(40)
+                image(alert_img,0,450,600,200)
+                textFont(mono)
+                
+            else:
+                textFont(mono)
+                text("Lives:"+str(self.number),35,550)
+            
+            
+            
+            
         
-class Button:
+class Button:       #class for the 4 buttons and other answers
     global ans_x
     global ans_y
     global ans_h
@@ -83,16 +83,19 @@ class Button:
         self.ans=ans
         self.qsn=0
         
-    def display(self):
+    def display(self):       #displays the options
         global click
         global coin
-        if self.txt!="U":
-            fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
-        else:
-            noFill()
-        noStroke()
-        rect(self.x,self.y,self.w,self.h,10)
-        fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
+        if screen!=11:
+            
+            if self.txt!="":
+                fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
+            
+            else:
+                noFill()
+            noStroke()
+            rect(self.x,self.y,self.w,self.h,10)
+            fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
         if screen==10:
             textFont(bonus)
         else:
@@ -105,10 +108,11 @@ class Button:
              textSize(self.font_size)
              text(self.txt,self.x+40,self.y+70)
 
-        if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h):
-            if self.txt!= ("THE ANSWER" ):
+        if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h and screen!=11):  #changes fontsize and color when dragged over answer
+            if self.txt!= ("THE ANSWER" ) :
                 stroke(255,255,0)
                 strokeWeight(10)
+                
                 fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
                 rect(self.x,self.y,self.w,self.h, 15)
                 fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
@@ -125,35 +129,35 @@ class Button:
                     textSize(self.font_size+5)
                     text(self.txt,self.x+40,self.y+70)
         
-        
-           
+    
         
             
         
-        if flag==0:
+        if flag==0:      #checks if answer is correct and increases points otherwise life is gone and moves to next screen; flag is a global variable for clicking
             global screen
             global flag
             global coin
             
             if(mouseX>self.x and mouseX <self.x+self.w and mouseY>self.y and mouseY <self.y+self.h):
-                stroke(255,20,147)
-                strokeWeight(10)
-                fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
-                rect(self.x,self.y,self.w,self.h, 15)
-                fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
-                textFont(mono)
-                textSize(self.font_size+10)
-                text(self.txt,self.x+20,self.y+70)
+                if screen!=11:
+                    stroke(255,20,147)
+                    strokeWeight(10)
+                    fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
+                    rect(self.x,self.y,self.w,self.h, 15)
+                    fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
+                    textFont(mono)
+                    textSize(self.font_size+10)
+                    text(self.txt,self.x+20,self.y+70)
                 global life
                 
-                if self.ans==0:
+                if self.ans==0:  #wrong answr
                     life-=1
                     click=0
                     flag=1
                 
             
                     
-                if self.ans==1 and screen!=10:
+                if self.ans==1 and screen!=10:  #right answer and if not specific to question10
                     
                     screen+=1
                     flag=1
@@ -164,7 +168,7 @@ class Button:
                         life+=1
                 
                 u=0
-                if self.txt=='WHAT DO\nYOU MEAN?'and flag==0:
+                if self.txt=='WHAT DO\nYOU MEAN?'and flag==0:   #right answer
                     if (mouseX>230 and mouseX <270 and mouseY>390 and mouseY <430):
                         click=0
                         u=1
@@ -175,17 +179,17 @@ class Button:
                         click=0
                         flag=1       
                         
-                if screen!=1 and (self.ans==1 and u==1):
+                if (screen!=1 and (self.ans==1 and u==1)) or (screen!=1 and self.ans==1):
                     if self.txt!="NAH":
                         coin+=10    
                     
 
 
+    
+    
 
 
-
-
-class Basic:
+class Basic:   #basic 4 option question class
     def __init__(self, image_file, x, y, w, h, txt):
         self.img = loadImage(path+image_file)
         self.x=x
@@ -194,10 +198,10 @@ class Basic:
         self.h=h
         self.txt=txt
   
-    def display(self):
+    def display(self):  #to display image
         image(self.img, self.x, self.y, self.w, self.h)
         
-    def question(self):
+    def question(self):  #to displkay the question
         fill(51, 153, 255)
         textSize(70)
         textFont(mono)
@@ -211,16 +215,24 @@ x_q6=270
 y_q6=150
 flag=1
 
-def mousePressed():
+def mousePressed():  #changes variable flag to 0 when mouse pressed
     global click
     click=1
 
     global flag
     flag=0
     
-    
+def keyPressed():  #specific to question 10, if key pressed is 1 then answer is correct and accordingly works
+    if keyCode==49 and screen==11:
+        global screen
+        global life
+        global coin
+        screen+=1
+        flag=1
+        click=0
+        coin+=10
         
-def mouseReleased():
+def mouseReleased():  #when mouse released flag variable changes back
     global flag
     flag=1
     
@@ -280,7 +292,7 @@ def draw():
         button4.display()
         
             
-    if screen==2:
+    if screen==2:  #2nd Question  
         background(240, 255, 240)
         ans_x=550
         ans_y=200
@@ -300,7 +312,7 @@ def draw():
         button4=Button("BALLET BUN", 550, 350, 100, 300, [255,222,173], [255,20,147], 38)
         button4.display()
         
-    if screen==3:
+    if screen==3: #3rd Question
         background(240, 255, 240)
         ans_x=550
         ans_y=200
@@ -321,7 +333,7 @@ def draw():
         button4=Button("YES", 550, 350, 100, 300, [255,222,173], [255,20,147], 38)
         button4.display()
         
-    if screen==4:
+    if screen==4:   #4th Question
         background(240, 255, 240)
         ans_x=280
         ans_y=40
@@ -349,7 +361,7 @@ def draw():
         fill(51, 153, 255)
         text("Q4: CLICK ", 35, 120 )
         
-    if screen==5:
+    if screen==5: #5th Question
         global change
         global al
         al=1
@@ -420,7 +432,7 @@ def draw():
                 flag=1
     
                 
-    if screen==6:
+    if screen==6:   #6th Question
         global al
         global x_q6
         global y_q6
@@ -472,7 +484,7 @@ def draw():
         p=millis()
             
                 
-    if screen==7:
+    if screen==7:  #7th Question
         
         global p
         background(240, 255, 240)
@@ -510,7 +522,7 @@ def draw():
         
             
             
-    if screen==8:
+    if screen==8:  #8th Question
         background(240, 255, 240)
         fill(51, 153, 255)
         textSize(50)
@@ -530,7 +542,7 @@ def draw():
         image(arrow3_img, 450, 350, 100, 60)
         
         
-    if screen==9:
+    if screen==9:  #Bonus for life
        background(240, 255, 240)
        fill(255, 0, 0)
        textFont(bonus)
@@ -542,7 +554,7 @@ def draw():
        button2=Button("NAH", 550, 300, 100, 300, [255,222,173], [255,20,147], 40, 1 )
        button2.display()
        
-    if screen==10:
+    if screen==10:  #9th question
         ans_x=200
         ans_y=400
         ans_h=40
@@ -566,21 +578,65 @@ def draw():
         
         button4=Button("HORSES WEAR\nSHOES??", 550, 350, 100, 300, [255,222,173], [255,20,147], 50)
         button4.display()
-    if screen==11:
-        background(240, 255, 240)
+        
+        global prev
+        prev=millis()
+        
+    if screen==11:  #10th Question
+        global prev
+        background(255, 255, 255)
         text("ok", 300, 350)
         
-    
+        m =  millis()- prev
+        seconds =  m / 1000
+        traffic=loadImage(path+"traffic.png")
         
+        fill(255,0,0)
+        textFont(mono)
+        textSize(80)
+        
+        text("Q10. QUICK!!\n PRESS ONE", 200, 90 )
+        image(traffic, 0, 250, 1000, 200)
+        
+        button1=Button("", 150,300,100,150, [255,222,173], [255,20,147], 50 )
+        button1.display()
+        
+        button2=Button("", 550,300,100,150, [255,222,173], [255,20,147], 50 )
+        button2.display()
+
+        button3=Button("", 350,300,100,150, [255,222,173], [255,20,147], 50)
+        button3.display()
+        
+        button4=Button("", 750,300,100,150, [255,222,173], [255,20,147], 50)
+        button4.display()
+        
+        starttime = 5-seconds
+        
+        if starttime==7:
+            button5=Button("", 30, 40, 100, 100, [240, 255, 240], [240, 255, 240], 35, 1 )
+            noStroke()
+            button5.display()
+            
+        if starttime<0:
+            life=0
+        fill(0)
+        textSize(50)
+        text(starttime, 120, 130)
+        image(bomb_img, 30, 50, 100, 100)
+                
+    if screen==12: #Win
+        background(240, 255, 240)
+        text("YAAS!!", 300, 350)
+            
 
         
 
     gamelife=Lives(life)
 
-    if life<=0:
+    if life<=0: #Game over page
         background(240, 255, 240)
         text("GAME OVER!!", 300, 350)
     
-    if screen!=0:
+    if screen!=0: #to display coin except for start page
         coin1=Coin()
         global coin
