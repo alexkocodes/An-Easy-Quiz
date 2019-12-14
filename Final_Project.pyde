@@ -93,7 +93,10 @@ class Button:
         noStroke()
         rect(self.x,self.y,self.w,self.h,10)
         fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
-        textFont(mono)
+        if screen==10:
+            textFont(bonus)
+        else:
+            textFont(mono)
         
         if len(self.txt)>12:
             textSize(32)
@@ -109,7 +112,10 @@ class Button:
                 fill(self.clr_box[0], self.clr_box[1], self.clr_box[2])
                 rect(self.x,self.y,self.w,self.h, 15)
                 fill(self.clr_text[0], self.clr_text[1], self.clr_text[2])
-                textFont(mono)
+                if screen==10:
+                    textFont(bonus)
+                else:
+                    textFont(mono)
                 textSize(self.font_size+5)
                 
                 if len(self.txt)>12:
@@ -118,9 +124,12 @@ class Button:
                 else:
                     textSize(self.font_size+5)
                     text(self.txt,self.x+40,self.y+70)
-                
+        
+        
+           
+        
             
-
+        
         if flag==0:
             global screen
             global flag
@@ -141,7 +150,11 @@ class Button:
                     life-=1
                     click=0
                     flag=1
-                if self.ans==1:
+                
+            
+                    
+                if self.ans==1 and screen!=10:
+                    
                     screen+=1
                     flag=1
                     click=0
@@ -149,15 +162,27 @@ class Button:
                     if self.txt=="YES!!":
                         coin-=70
                         life+=1
+                
+                u=0
+                if self.txt=='WHAT DO\nYOU MEAN?'and flag==0:
+                    if (mouseX>230 and mouseX <270 and mouseY>390 and mouseY <430):
+                        click=0
+                        u=1
+                        screen+=1
+                        flag=1
+                    else:
+                        life-=1
+                        click=0
+                        flag=1       
                         
-                if screen!=1 and self.ans==1:
+                if screen!=1 and (self.ans==1 and u==1):
                     if self.txt!="NAH":
                         coin+=10    
                     
 
 
 
-    
+
 
 
 class Basic:
@@ -189,10 +214,6 @@ flag=1
 def mousePressed():
     global click
     click=1
-    global ans_x
-    global ans_y
-    global ans_h
-    global ans_w
 
     global flag
     flag=0
@@ -522,22 +543,35 @@ def draw():
        button2.display()
        
     if screen==10:
+        ans_x=200
+        ans_y=400
+        ans_h=40
+        ans_w=40
         background(240, 255, 240)
         fill(51, 153, 255)
+        textFont(bonus)
         textSize(60)
-        text("Q9: The answer is\na horseshoe.", 70, 90 )
         
-        button1=Button("HOOF", 150, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        text("Q9: The answer is\na horseshoe.", 70, 90 )
+           
+        
+        button1=Button("HOOF", 150, 200, 100, 300, [255,222,173], [255,20,147], 50 )
         button1.display()
-        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 38 )
+        
+        button2=Button("A horseshoe", 550, 200, 100, 300, [255,222,173], [255,20,147], 50 )
         button2.display()
 
-        button3=Button("WHAT DO\nYOU MEAN?", 150, 350, 100, 300, [255,222,173], [255,20,147], 30)
+        button3=Button("WHAT DO\nYOU MEAN?", 150, 350, 100, 300, [255,222,173], [255,20,147], 50, 1)
         button3.display()
-        button4=Button("HORSES WEAR\nSHOES??", 550, 350, 100, 300, [255,222,173], [255,20,147], 30)
+        
+        button4=Button("HORSES WEAR\nSHOES??", 550, 350, 100, 300, [255,222,173], [255,20,147], 50)
         button4.display()
-        button5=Button("", 200, 400, 40, 40, [255,222,173], [255,20,147], 30, 1)
-        button5.display()
+    if screen==11:
+        background(240, 255, 240)
+        text("ok", 300, 350)
+        
+    
+        
 
         
 
