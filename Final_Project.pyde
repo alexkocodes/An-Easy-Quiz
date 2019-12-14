@@ -6,12 +6,16 @@ global coin
 coin=0
 global al
 al=0
+global again
+again=0
 path = os.getcwd()+"/"
 coin_img=loadImage(path+"coin.png")
 bomb_img=loadImage(path+"bomb.png")
 arrow1_img=loadImage(path+"Arrow_1.png")
 arrow2_img=loadImage(path+"Arrow_2.png")
 arrow3_img=loadImage(path+"Arrow_3.png")
+gameover=loadImage(path+"gameover.jpg")
+win_img=loadImage(path+"win.jpg")
 global ans_x
 global ans_y
 global ans_h
@@ -130,7 +134,6 @@ class Button:       #class for the 4 buttons and other answers
                     textSize(self.font_size+5)
                     text(self.txt,self.x+40,self.y+70)
         
-    
         
             
         
@@ -163,6 +166,9 @@ class Button:       #class for the 4 buttons and other answers
                     screen+=1
                     flag=1
                     click=0
+                    if self.txt=="Try again?":
+                        global again
+                        again=1
                     
                     if self.txt=="YES!!":
                         coin-=70
@@ -236,7 +242,15 @@ def keyPressed():  #specific to question 10, if key pressed is 1 then answer is 
         
 def mouseReleased():  #when mouse released flag variable changes back
     global flag
+    global life
     flag=1
+
+def Gameover():
+    global again
+    global screen
+    screen=0
+    coin=0
+    life=3
     
     
 def setup():
@@ -648,18 +662,20 @@ def draw():
     gamelife=Lives(life)
     
     if screen==13:
-        background(240, 255, 240)
-        text("YAS!!", 300, 350)
+        image(win_img, 0, 0, 1000, 600)
         noLoop()
     if life<=0: #Game over page
         global win
-        if screen!=12 and screen!=13:    
-            background(240, 255, 240)
-            text("GAME OVER!!", 300, 350)
+        if screen!=12 and screen!=13:  
+            image(gameover, 0, 0, 1000, 600)
+
         elif win==1:
             screen+=1
             
-        
+        elif win==0:
+
+            image(gameover, 0, 0, 1000, 600)
+            
 
     
     if screen!=0: #to display coin except for start page
