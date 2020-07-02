@@ -644,8 +644,8 @@ def draw():
         background(0)
         fill(255, 0, 0)
         textSize(50)
-        text("Final Question!\nAnswer this question wrong to win!", 50, 90 )
-        text("23 - 16?", 50, 220 )
+        text("Final Question!\nAnswer the follwing question\nwrong 4 times to win!\nQ: 23 - 16?", 50, 90 )
+        
         
         button1=Button("7", 150, 300, 100, 300, [255,222,173], [255,20,147], 30, 2 )
         button1.display()
